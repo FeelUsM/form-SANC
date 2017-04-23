@@ -1,0 +1,44 @@
+TFORM 4.1 (Sep  9 2016) 64-bits 0 workers        Run: Fri Apr  7 16:41:44 2017
+    #include Declar.h
+    #-
+    load Born12121212.sav;
+ [born12121212] loaded
+    L BornBrem = [born12121212];
+    Print;
+
+   BornBrem =
+      32*pi^2*alpha^2*volum*qel^4*Qs^-2*Us^2 + 32*pi^2*alpha^2*volum*qel^4*
+      Qs^-2*Ts^2 + 64*pi^2*alpha^2*volum*qel^4*Qs^-1*Ts^-1*Us^2 + 32*pi^2*
+      alpha^2*volum*qel^4*Ts^-2*Us^2 + 32*pi^2*alpha^2*volum*qel^4*Qs^2*Ts^-2
+       + 16*chi(mz^2,s)*pi^2*alpha^2*volum*qel^2*vmael^2*Qs^-2*Us^2 + 16*chi(
+      mz^2,s)*pi^2*alpha^2*volum*qel^2*vmael^2*Qs^-1*Ts^-1*Us^2 + 32*chi(mz^2,
+      s)*pi^2*alpha^2*volum*qel^2*vpael*vmael*Qs^-2*Ts^2 + 16*chi(mz^2,s)*pi^2
+      *alpha^2*volum*qel^2*vpael^2*Qs^-2*Us^2 + 16*chi(mz^2,s)*pi^2*alpha^2*
+      volum*qel^2*vpael^2*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,s)*chic(mz^2,s)*pi^2*
+      alpha^2*volum*vmael^4*Qs^-2*Us^2 + 32*chi(mz^2,s)*chic(mz^2,s)*pi^2*
+      alpha^2*volum*vpael^2*vmael^2*Qs^-2*Ts^2 + 16*chi(mz^2,s)*chic(mz^2,s)*
+      pi^2*alpha^2*volum*vpael^4*Qs^-2*Us^2 + 16*chi(mz^2,s)*chic(mz^2,t)*pi^2
+      *alpha^2*volum*vmael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,s)*chic(mz^2,t)*
+      pi^2*alpha^2*volum*vpael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*pi^2*
+      alpha^2*volum*qel^2*vmael^2*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*pi^2*
+      alpha^2*volum*qel^2*vmael^2*Ts^-2*Us^2 + 32*chi(mz^2,t)*pi^2*alpha^2*
+      volum*qel^2*vpael*vmael*Qs^2*Ts^-2 + 16*chi(mz^2,t)*pi^2*alpha^2*volum*
+      qel^2*vpael^2*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*pi^2*alpha^2*volum*qel^2
+      *vpael^2*Ts^-2*Us^2 + 16*chi(mz^2,t)*chic(mz^2,s)*pi^2*alpha^2*volum*
+      vmael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*chic(mz^2,s)*pi^2*alpha^2*
+      volum*vpael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*chic(mz^2,t)*pi^2*
+      alpha^2*volum*vmael^4*Ts^-2*Us^2 + 32*chi(mz^2,t)*chic(mz^2,t)*pi^2*
+      alpha^2*volum*vpael^2*vmael^2*Qs^2*Ts^-2 + 16*chi(mz^2,t)*chic(mz^2,t)*
+      pi^2*alpha^2*volum*vpael^4*Ts^-2*Us^2 + 16*chic(mz^2,s)*pi^2*alpha^2*
+      volum*qel^2*vmael^2*Qs^-2*Us^2 + 16*chic(mz^2,s)*pi^2*alpha^2*volum*
+      qel^2*vmael^2*Qs^-1*Ts^-1*Us^2 + 32*chic(mz^2,s)*pi^2*alpha^2*volum*
+      qel^2*vpael*vmael*Qs^-2*Ts^2 + 16*chic(mz^2,s)*pi^2*alpha^2*volum*qel^2*
+      vpael^2*Qs^-2*Us^2 + 16*chic(mz^2,s)*pi^2*alpha^2*volum*qel^2*vpael^2*
+      Qs^-1*Ts^-1*Us^2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vmael^2*
+      Qs^-1*Ts^-1*Us^2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vmael^2*
+      Ts^-2*Us^2 + 32*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael*vmael*Qs^2*
+      Ts^-2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael^2*Qs^-1*Ts^-1*
+      Us^2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael^2*Ts^-2*Us^2;
+
+    .end
+  0.00 sec + 0.00 sec: 0.00 sec out of 0.00 sec
