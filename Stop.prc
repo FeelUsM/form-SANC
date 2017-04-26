@@ -7,10 +7,10 @@
 * message -- printed before exit  * 
 ***********************************
 
-.sort
+.sort :Stop.prc;
  #if (`$error' == 1)        
       #write " ## `message'";
-     .end
+     .end :StopEnd;
  #endif     
 #endprocedure
 *------------

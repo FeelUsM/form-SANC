@@ -5,6 +5,11 @@
 *  convertIndex : converts variables          * 
 *                 into internal notation      *
 ***********************************************
+.sort :DiracStart;
+#include Misc.h
+Nfun	axgd;
+index 	j;
+sym	mmm,uuu,ppp;
 
  #call Stop()
  skip;
@@ -52,7 +57,7 @@
     id Vb?suf(ii?sSLI,p?sMom,?a) = Vb(ii,p,?a)*sf(ii,p,?a);		* Vb(ii) -> Vb(ii,p)*sf(ii,p)
 
 **==============================
-* -- Step 3: ищем повторяющиеся спиновые индексы ...
+* -- Step 3: ищем повторяющиеся спиновые индексы в разных токах...
 *==============================
     if (match(sf(ii?sSLI,?a)*sf(ii?sSLI$indx,?b)));			* if_match sf(ii)*sf(ii)
        print " ## ERROR in expression `exprName': %$ - duplicated spinor index ...",$indx;
@@ -66,12 +71,37 @@
 *==============================
     if (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));				* if_match sf(ii,p)*gd(ii,p)
        #call GammaRight();								* GammaRight();
-       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];	* \hat p*\hat p -> -m^2
+       #if `PeskinNaumov'
+	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];	* \hat p*\hat p -> +m^2
+       #else
+	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];	* \hat p*\hat p -> -m^2
+       #endif
     endif;
 
 *==============================
 * -- Step 5: Используем уравнение Дирака, чтобы выкинуть соответствующие моменты ...
 *==============================
+#if `PeskinNaumov'
+    while (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));
+      repeat;
+*       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm])*sf(ii?sSLI,p?sMom[mmm],?a) = + sMas[mmm]*sMas[mmm];
+        id gd(ii?sSLI,mu?)*gd(ii?sSLI,p?)*sf(ii?sSLI,p?,?a) = (-gd(ii,p)*gd(ii,mu) + 2*p(mu))*sf(ii,p,?a);
+	if(match(Vb?suf[uuu](ii?sSLI,p?sMom[mmm],?a)*gd(ii?sSLI,p?sMom[mmm])));
+	  print "WARNING: chanche Vb(p)*gd(p) -> Vb(p)*m : %t (advise: choose another variant for P or Q)";
+	endif;
+        id Vb?suf[uuu](ii?sSLI,p?sMom[mmm],?a)*gd(ii?sSLI,p?sMom[mmm]) = (-1)^uuu*1*sMas[mmm]*Vb(ii,p,?a);
+        id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];
+      endrepeat;
+    endwhile;
+*    while_match sf(ii,p)*gd(ii,p);
+*      repeat;
+**       gd(p)*gd(p)*sf(p)  -> + m^2;
+*        gd(mu)*gd(p)*sf(p) -> (-gd(p)*gd(mu) + 2*p(mu))*sf(p);
+**        Vb(p)*gd(p)        -> (+/- = Ub/Vb)*1*m*Vb(p);
+*        gd(p)*gd(p)        -> + m^2;
+*      endrepeat;
+*    endwhile;
+#else
     while (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));
       repeat;
 *       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm])*sf(ii?sSLI,p?sMom[mmm],?a) = - sMas[mmm]*sMas[mmm];
@@ -88,6 +118,7 @@
 *        gd(p)*gd(p)        -> - m^2;
 *      endrepeat;
 *    endwhile;
+#endif
 
 *==============================
 * -- Step 6: Выкидываеи дополнительную функцию sf(?a) ...
@@ -102,7 +133,7 @@
  #endif
  #call SetFlags() 
 
-.sort
+.sort :DiracMiddle;
 
 *==============================
 * -- Step 7: Делаем ту же процедуру для "правых" полей(spf) ...
@@ -123,9 +154,23 @@
 
     if (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));
        #call GammaLeft()
-       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];
+       #if `PeskinNaumov'
+	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];
+       #else
+	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];
+       #endif
     endif;
 
+#if `PeskinNaumov'
+    while (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));
+       repeat;
+*        id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm])*sf(ii?sSLI,p?sMom[mmm],?a) = + sMas[mmm]*sMas[mmm];
+         id gd(ii?sSLI,p?)*gd(ii?sSLI,mu?)*sf(ii?sSLI,p?,?a) = (-gd(ii,mu)*gd(ii,p) + 2*p(mu))*sf(ii,p,?a);
+         id gd(ii?sSLI,p?sMom[mmm])*U?spf[ppp](ii?sSLI,p?sMom[mmm],?a) = (-1)^ppp*1*sMas[mmm]*U(ii,p,?a);
+         id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];
+       endrepeat;
+    endwhile;
+#else
     while (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));
        repeat;
 *        id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm])*sf(ii?sSLI,p?sMom[mmm],?a) = - sMas[mmm]*sMas[mmm];
@@ -134,7 +179,8 @@
          id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];
        endrepeat;
     endwhile;
-
+#endif
+    
     id U?spf(ii?sSLI,p?sMom,?a)*sf(ii?sSLI,p?sMom,?a) = U(ii,p,?a);
 
  endif;

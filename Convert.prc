@@ -14,10 +14,11 @@
  #else
      #$nLoop = `nMomenta';
  #endif
+* #write "Ceonverting from 1 to `$nLoop'"
  #do i=1,`$nLoop'
 
     #ifdef `Im`i'';
-	#write "Convert `Im`i''";
+	#write "Convert `i': `Im`i''";
        #if ((`index' == 1) || (`index' == 0))
            argument;
               id m`i' = pm(`I`i'');                          * -- convert "m"asses
@@ -38,7 +39,7 @@
     #endif
  
     #ifdef `Iin`i'';
-	#write "Convert `Iin`i''";
+	#write "Convert `i': `Iin`i''";
        #if ((`index' == 1) || (`index' == 0))
            argument;
               id m`i' = pm(`Iin`i'');                        * -- convert "m"asses
@@ -59,7 +60,7 @@
     #endif
 
     #ifdef `Ifn`i'';
-	#write "Convert `Ifn`i''";
+	#write "Convert `i': `Ifn`i''";
        #if ((`index' == 1) || (`index' == 0))
            argument;
               id m`i' = pm(`Ifn`i'');                        * -- convert "m"asses

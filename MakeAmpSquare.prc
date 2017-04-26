@@ -31,8 +31,9 @@
 
 #write "=== Hermitian: ==="
 print +s;
-.sort:Hermitian;
+.sort:Hermitian-calculated;
 #write "=== -Hermitian ==="
+.end
 
 *=============================================
 * -- Step 2: меняем лоренцевские индексы суммирования

@@ -11,6 +11,9 @@
  Global TEMP = `expressionIn';       * -- temporary global for substitutions ...*
 
 .sort
+#include Misc.h
+Cfun	dfun;
+sym	ggg;
 
  skip;
  nskip TEMP;                         * -- skip all the active expresions exept TEMP ...*
@@ -74,7 +77,7 @@
  id dfun(2,?a) = spv[1](?a);
 
 .sort
- 
+
 *==============================
 * -- Step 4: сопрягаем биспиноры и матрицы Дирака
 *==============================
@@ -98,7 +101,11 @@
       endrepeat;
       id Ub?suf[uuu](?a)*U?spf[mmm](?b) = axgd(-2,mmm,?b)*axgd(-1,uuu,?a);	* Ub_1*U_2      -> [Ub_2]*[U_1]
       repeat ;
+       #if `PeskinNaumov'
+        id axgd(-1,?a)*axgd(-3,1,?b) = + axgd(-3,1,?b)*axgd(-1,?a);		*   [U]*[gd_mu] -> + [gd_mu]*[U]
+       #else
         id axgd(-1,?a)*axgd(-3,1,?b) = - axgd(-3,1,?b)*axgd(-1,?a);		*   [U]*[gd_mu] -> - [gd_mu]*[U]
+       #endif
         id axgd(-1,?a)*axgd(-3,2,?b) = - axgd(-3,2,?b)*axgd(-1,?a);		*   [U]*[gd5]   -> - [gd5]*[U]
         id axgd(-1,?a)*axgd(-3,3,?b) =   axgd(-3,4,?b)*axgd(-1,?a);		*   [U]*[gd6]   ->   [gd7]*[U]
         id axgd(-1,?a)*axgd(-3,4,?b) =   axgd(-3,3,?b)*axgd(-1,?a);		*   [U]*[gd7]   ->   [gd6]*[U]
@@ -113,7 +120,7 @@
 *==============================
 * -- Step 5: генераторы калибровочной группы QCD
 *==============================
- id Tf(gi1?sAgi,cl1?sAcl,cl2?sAcl) = Tf(gi1,cl2,cl1);
+** id Tf(gi1?sAgi,cl1?sAcl,cl2?sAcl) = Tf(gi1,cl2,cl1);
 
 *==============================
 * -- Step 6: обрабатываем форм-факторы, если есть
@@ -129,9 +136,9 @@
 * -- Step 7: и наконец ...
 *==============================
  id i_ = -i_;
- id chi(?a) = chic(?a);
- id den(1,m1?{mw,mz,mh,mtp},Q?) = denc(1,m1,Q);
- id prop(?a) = propc(?a);
+** id chi(?a) = chic(?a);
+** id den(1,m1?{mw,mz,mh,mtp},Q?) = denc(1,m1,Q);
+** id prop(?a) = propc(?a);
 
 .sort
  drop TEMP;
