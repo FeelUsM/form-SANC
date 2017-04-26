@@ -5,12 +5,12 @@
 *                                               *
 * Output is stored in Global "expressionOut"    *
 *************************************************
-
+* ** - я закомментировал временно, т.к. пока не пригодилось
  #call Stop()
 
  Global TEMP = `expressionIn';       * -- temporary global for substitutions ...*
 
-.sort
+.sort :Hermitian-Start;
 #include Misc.h
 Cfun	dfun;
 sym	ggg;
@@ -70,13 +70,13 @@ sym	ggg;
  skip;
  nskip TEMP;
  id pV?spv[mmm](?a) = dfun(mmm,?a);
-.sort
+.sort :Hermitian-Bozon-start;
  skip;
  nskip TEMP;
  id dfun(1,?a) = spv[2](?a);
  id dfun(2,?a) = spv[1](?a);
 
-.sort
+.sort :Hermitian-bozon-end;
 
 *==============================
 * -- Step 4: сопрягаем биспиноры и матрицы Дирака
@@ -140,10 +140,11 @@ sym	ggg;
 ** id den(1,m1?{mw,mz,mh,mtp},Q?) = denc(1,m1,Q);
 ** id prop(?a) = propc(?a);
 
-.sort
+.sort :Hermitian-end-start;
  drop TEMP;
  Global `expressionOut' = TEMP;
-.sort
+ print +s;
+.sort :Hermitian-end-end;
 
 #endprocedure
 *------------

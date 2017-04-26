@@ -20,8 +20,11 @@ Sym	      h1,...,h`nMomenta';
 Set	sHel: h1,...,h`nMomenta';
 
 * === set of Lorentz indices ===
-Index       al,be,ga,mu,mu1,...,mu`nIndex',nu,nu1,...,nu`nIndex';
-Set	sIndex: al,be,ga,mu,mu1,...,mu`nIndex',nu,nu1,...,nu`nIndex';
+Index            al,   be,   ga,   mu,   mu1,...,   mu`nIndex',   nu,   nu1,...,   nu`nIndex';
+Set	sIndex:      al,   be,   ga,   mu,   mu1,...,   mu`nIndex',   nu,   nu1,...,   nu`nIndex';
+* для комплексного сопряжения
+Index	      smIal,smIbe,smIga,smImu,smImu1,...,smImu`nIndex',smInu,smInu1,...,smInu`nIndex';
+Set	sIndexSm: smIal,smIbe,smIga,smImu,smImu1,...,smImu`nIndex',smInu,smInu1,...,smInu`nIndex';
 
 * === set of Spin Line Indices ===
 Index     ii,jj,ii1,...,ii`nIndex';

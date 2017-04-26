@@ -86,9 +86,6 @@ sym	mmm,uuu,ppp;
       repeat;
 *       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm])*sf(ii?sSLI,p?sMom[mmm],?a) = + sMas[mmm]*sMas[mmm];
         id gd(ii?sSLI,mu?)*gd(ii?sSLI,p?)*sf(ii?sSLI,p?,?a) = (-gd(ii,p)*gd(ii,mu) + 2*p(mu))*sf(ii,p,?a);
-	if(match(Vb?suf[uuu](ii?sSLI,p?sMom[mmm],?a)*gd(ii?sSLI,p?sMom[mmm])));
-	  print "WARNING: chanche Vb(p)*gd(p) -> Vb(p)*m : %t (advise: choose another variant for P or Q)";
-	endif;
         id Vb?suf[uuu](ii?sSLI,p?sMom[mmm],?a)*gd(ii?sSLI,p?sMom[mmm]) = (-1)^uuu*1*sMas[mmm]*Vb(ii,p,?a);
         id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];
       endrepeat;
@@ -97,7 +94,7 @@ sym	mmm,uuu,ppp;
 *      repeat;
 **       gd(p)*gd(p)*sf(p)  -> + m^2;
 *        gd(mu)*gd(p)*sf(p) -> (-gd(p)*gd(mu) + 2*p(mu))*sf(p);
-**        Vb(p)*gd(p)        -> (+/- = Ub/Vb)*1*m*Vb(p);
+*        Vb(p)*gd(p)        -> (+/- = Ub/Vb)*1*m*Vb(p); * да да, так можно делать
 *        gd(p)*gd(p)        -> + m^2;
 *      endrepeat;
 *    endwhile;

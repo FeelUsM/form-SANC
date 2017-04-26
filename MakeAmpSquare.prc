@@ -27,13 +27,8 @@
 *=============================================	
 * -- Step 1: делаем эрмитово сопряжение. Output is saved in TEMP
 *=============================================	
+ 
  #call Hermitian(`expressionIn',TEMP);
-
-#write "=== Hermitian: ==="
-print +s;
-.sort:Hermitian-calculated;
-#write "=== -Hermitian ==="
-.end
 
 *=============================================
 * -- Step 2: меняем лоренцевские индексы суммирования
@@ -51,7 +46,7 @@ print +s;
       #ifdef `debug'
          Fill indexTab(1) = sf(?a);
       #else
-         Fill indexTab(1) = 1;
+         Fill indexTab(1) = 1; * not debug
       #endif   
      #$isMakeAmpSquaredUsed = 1;
     .global
@@ -61,12 +56,13 @@ print +s;
  skip;
  nskip TEMP; 
 
+* === заменяем индексы из sIndex на sIndexSm в гамма-матрицах и том, с чем они свертываются ===
  if ( match(gd(i?,mu?sIndex)) );
      repeat;
        id once gd(i?,mu?sIndex) = axgd(i,mu)*sf(0,mu);       * probe for sum index
 
-       id gd(i?,mu?sIndex[mmm])*sf(0,mu?) = gd(i,sIndexSm[mmm])*sf(1,mu);              * find & change
-       id pV?spv(i?,mu?sIndex[mmm],?a)*sf(0,mu?) = pV(i,sIndexSm[mmm],?a)*sf(1,mu);    * find & change
+       id      gd(i?,mu?sIndex[mmm])   *sf(0,mu?) =  gd(i,sIndexSm[mmm])   *sf(1,mu);  * find & change
+       id  pV?spv(i?,mu?sIndex[mmm],?a)*sf(0,mu?) =  pV(i,sIndexSm[mmm],?a)*sf(1,mu);  * find & change
        id pVc?spv(i?,mu?sIndex[mmm],?a)*sf(0,mu?) = pVc(i,sIndexSm[mmm],?a)*sf(1,mu);  * find & change
 
        id axgd(i?,mu?sIndex[mmm$sumIndex])*sf(1,mu?) = gd(i,sIndexSm[mmm])*indexTab(1,mmm); * if find, change in probe also
@@ -77,10 +73,11 @@ print +s;
      id axgd(i?,mu?sIndex[mmm])*sf(0,mu?) = gd(i,mu);  * not found        
  endif; 
   
- if ( match(pV?spv(i?,mu?sIndex,?a)*pVc?spv(j?,mu?sIndex,?b)) );
+* === заменяем индексы из sIndex на sIndexSm в свертаках pV(i,mu)*pVc(i,mu) ===
+ if ( match(   pV?spv(i?,mu?sIndex,              ?a)*pVc?spv(j?,mu?sIndex,     ?b)) );
      repeat; 
        id once pV?spv(i?,mu?sIndex[mmm$sumIndex],?a)*pVc?spv(j?,mu?sIndex[mmm],?b) = 
-                              pV(i,sIndexSm[mmm],?a)*pVc(j,sIndexSm[mmm],?b)*indexTab(1,mmm);
+                   pV(i,  sIndexSm[mmm],         ?a)    *pVc(j,  sIndexSm[mmm],?b)*indexTab(1,mmm);
        #ifdef `debug'
           if ($sumIndex > $sumIndexMax) $sumIndexMax = $sumIndex;
        #endif
@@ -109,7 +106,8 @@ print +s;
 *=============================================	
 * -- Step 3: change the color summation indices
 *=============================================
-.sort 
+#if 0
+.sort :AmpSquare-color;
 
  #$giSMax = 0;
  #$giS = 0;
@@ -154,7 +152,9 @@ print +s;
  #endif 
 *// DEBUG - DEBUG - DEBUG - DEBUG
 
-.sort
+#endif
+
+.sort :AmpSquare-end-start;
  drop TEMP;
 *=============================================	
 * -- Step 4: construct the square of amplitude `expressionIn'
@@ -162,7 +162,7 @@ print +s;
  Global `expressionOut' = `multiplyWt'*`expressionIn'*TEMP;
 * Global `expressionOut' = TEMP;
  
-.sort
+.sort :AmpSquare-end-end;
  
 #endprocedure
 *------------

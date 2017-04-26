@@ -88,8 +88,10 @@ id e^2*den(1,0,P)=4*pi*alpha/Ts;
 
 print +s;
 .sort :Compton-alpha;
+sym volum;
 
 #call MakeAmpSquare(Born`iu'`id'`fu'`fd',amplitudeSquared,1/4*volum)
+print +s;
 
 .end :Compton-end;
 
