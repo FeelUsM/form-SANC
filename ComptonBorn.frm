@@ -29,7 +29,7 @@
 #define PeskinNaumov "1"
 * else SANC convention
 
-#include myDeclare.h
+#include Declare.h
 
 #define iu  "1"
 #define id  "12"
@@ -54,7 +54,7 @@ GLOBAL	Born`iu'`id'`fu'`fd' =
 ;
 #endif
 
-#call Feynman(0); * QED
+#call FeynmanRules(0); * QED
 
 * в знаменателях P и Q оставляем как есть, а вот гаммы-дирака раскрываем
 id gd(ii,Q) = gd(ii,p1)+gd(ii,p2);

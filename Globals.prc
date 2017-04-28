@@ -1,12 +1,10 @@
-#procedure Globals(dummy)
-*------------------------
-*
-* Filling of arrays
-*
+#procedure Globals()
+#ifndef `myGlobalH'
+#define myGlobalH "1"
+
+* Filling of arrays				* Globals.prc
+* === Electric charges ===
 Table c(1:24);
-*
-* Electric charges
-*
 Fill c(1) = 0;
 Fill c(2) = 0;
 Fill c(3) = 1;
@@ -31,92 +29,9 @@ Fill c(21)= qtp;
 Fill c(22)= qbt;
 Fill c(23)= 0;
 Fill c(24)= 0;
-*
-Table relax cd(-24:24);
-*
-* Electric charges for \delta-functions
-*
-Fill cd(0) = 0;
-Fill cd(1) = 0;
-Fill cd(2) = 0;
-Fill cd(3) = 1;
-Fill cd(4) = 0;
-Fill cd(5) = 0;
-Fill cd(6) = 1;
-Fill cd(7) = 1;
-Fill cd(8) =-1;
-Fill cd(9) = 0;
-Fill cd(10)= 0;
-Fill cd(11)= 0;
-Fill cd(12)=-1;
-Fill cd(13)=+2/3;
-Fill cd(14)=-1/3;
-Fill cd(15)= 0;
-Fill cd(16)=-1;
-Fill cd(17)=+2/3;
-Fill cd(18)=-1/3;
-Fill cd(19)= 0;
-Fill cd(20)=-1;
-Fill cd(21)=+2/3;
-Fill cd(22)=-1/3;
-Fill cd(23)= 0;
-Fill cd(24)= 0;
-*
-Fill cd(-1) = 0;
-Fill cd(-2) = 0;
-Fill cd(-3) =-1;
-Fill cd(-4) = 0;
-Fill cd(-5) = 0;
-Fill cd(-6) =-1;
-Fill cd(-7) =-1;
-Fill cd(-8) = 1;
-Fill cd(-9) = 0;
-Fill cd(-10)= 0;
-Fill cd(-11)= 0;
-Fill cd(-12)= 1;
-Fill cd(-13)=-2/3;
-Fill cd(-14)=+1/3;
-Fill cd(-15)= 0;
-Fill cd(-16)= 1;
-Fill cd(-17)=-2/3;
-Fill cd(-18)=+1/3;
-Fill cd(-19)= 0;
-Fill cd(-20)= 1;
-Fill cd(-21)=-2/3;
-Fill cd(-22)=+1/3;
-Fill cd(-23)= 0;
-Fill cd(-24)= 0;
-*
-Table gh(0:23);
-*
-* ghost's charges
-*
-Fill gh(0) = 0;
-Fill gh(1) = 0;
-Fill gh(2) = 0;
-Fill gh(3) = 0;
-Fill gh(4) = 0;
-Fill gh(5) = 0;
-Fill gh(6) = 0;
-Fill gh(7) = 1;
-Fill gh(8) =-1;
-Fill gh(9) = 1;
-Fill gh(10)= 1;
-Fill gh(11)= 0;
-Fill gh(12)= 0;
-Fill gh(13)= 0;
-Fill gh(14)= 0;
-Fill gh(15)= 0;
-Fill gh(16)= 0;
-Fill gh(17)= 0;
-Fill gh(18)= 0;
-Fill gh(19)= 0;
-Fill gh(20)= 0;
-Fill gh(21)= 0;
-Fill gh(22)= 0;
-Fill gh(23)= 1;
 
-* table of (p)article (n)ames *
+* === table of (p)article (n)ames ===
+sym	w,z,h,en,el,up,dn,mn,mo,ch,st,tn,ta,tp,bt,gm,gn;			* Declar.h:88
  Table relax pn(-24:24);
   Fill pn(1) = gm;   * -- gamma
   Fill pn(-1) = gm;
@@ -153,7 +68,9 @@ Fill gh(23)= 1;
   Fill pn(23) = gn;  * -- gluon
   Fill pn(-23) = gn;
 
-* table of (p)article (m)asses *
+* === masses, ratios(???), betas(???); ===
+sym	mgm,mgn,mw,mz,mv,mh,men,mel,mup,mdn,mmn,mmo,mch,mst,mtn,mta,mtp,mbt,mp,mw2,mw2c; 	* Declar.h:94
+* === table of (p)article (m)asses ===
  Table relax pm(-24:24);
   #do i = 1,23
      #if ((`i'<=4) || (`i'>=11))
@@ -163,6 +80,8 @@ Fill gh(23)= 1;
      #endif
   #enddo
 
+* === кто кварк а кто лептон ===
+sym	cfl,cfq;			* Declar.h:81
  Table relax clf(11:22);
   Fill clf(11) = cfl;
   Fill clf(12) = cfl;
@@ -177,77 +96,23 @@ Fill gh(23)= 1;
   Fill clf(21) = cfq;
   Fill clf(22) = cfq;
 
-* table of (rat)ios *
- Table relax rat(11:22,2:4);
-  #do i = {2,3,4}
-     #$tmp1 = pn(`i'); 
-     #do j = 11,22 
-        #$tmp2 = pn(`j');        
-        Fill rat(`j',`i') = r`$tmp2'`$tmp1';
-     #enddo
-  #enddo
  
-* tables of coupling constants *
+* === tables of coupling constants ===*
+* === коэффициенты правости ===
  Table vpa(11:22);
   #do i = 11,22  
      #$tmp = pn(`i');
      Fill vpa(`i') = vpa`$tmp';
   #enddo
 
+* === коэффициенты левости ===
  Table vma(11:22);
   #do i = 11,22  
      #$tmp = pn(`i');
      Fill vma(`i') = vma`$tmp';
   #enddo
 
- Table relax vf(11:22);
-  #do i = 11,22  
-     #$tmp = pn(`i');
-     Fill vf(`i') = v`$tmp';
-  #enddo
 
- Table relax af(11:22);
-  #do i = 11,22  
-     #$tmp = pn(`i');
-     Fill af(`i') = a`$tmp';
-  #enddo
 
- Table relax df(11:22);
-  #do i = 11,22  
-     #$tmp = pn(`i');
-     Fill df(`i') = df`$tmp';
-  #enddo
-
-* table of weak isospin *
- Table i3(11:22);
-  #do i = 11,22  
-     #$tmp = pn(`i');
-     Fill i3(`i') = i3`$tmp';
-  #enddo
-
-* table of gauge parameters *
- Table relax rxi(1:23);
-  Fill rxi(1) = xia;
-  Fill rxi(2) = xiz;
-  Fill rxi(3) = xi;
-  Fill rxi(23)= xig;
-
- #ifdef `debug'
-    printtable c;
-    printtable cd;
-    printtable gh;
-    printtable pn;
-    printtable pm;
-    printtable clf;
-    printtable rat;
-    printtable vpa;
-    printtable vma;
-    printtable vf;
-    printtable af;
-    printtable i3;
-    printtable rxi;
- #endif 
- 
-.global
+#endif
 #endprocedure
-*------------ 
