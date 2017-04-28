@@ -3,19 +3,19 @@
 *
 *       photon          particle                     photon    particle      
 *        iu,p1           fu,p4                        iu,p1     fu,p4        
-*        ii,nu           jj,mu                        ii,nu     jj,mu        
+*          mu             ii                           nu        jj      
 *           \             /                              \       /           
 *            -           /                                -     /            
 *             \   Q     /                                  \   /             
-*  vert(vb,id,iu)------(vert(vb,fu,fd)               vert(vb,fu,iu)
+*     vert(mu,ii)-----vert(nu,ii)                      vert(nu,jj)
 *             /         \                                    |
 *            /           -                                   | P
 *           /             \                                  |
-*        ii,nu           jj,mu                       vert(vb,id,fd)
+*         ii              nu                           vert(mu,jj)
 *        id,p2           fd,p3                             /   \             
 *       particle        photon                            /     -            
 *                                                        /       \           
-*                                                     ii,nu     jj,mu        
+*                                                       jj       mu        
 *                                                     id,p2     fd,p3        
 *                                                    particle  photon        
 
@@ -43,14 +43,14 @@ GLOBAL	Born`iu'`id'`fu'`fd' =
    + Ub(ii,p4,h4)*vert(1,`id',-`id',nu,ii)*pr(`fu',Q,ii)*vert(1,`fu',-`fu',mu,ii)*U(ii,p2,h2)
 	*pV(1,mu,p1,h1)*pVc(1,nu,p3,h3)
    + Ub(jj,p4,h4)*vert(1,`id',-`id',nu,jj)*pr(`fu',P,jj)*vert(1,`fu',-`fu',mu,jj)*U(jj,p2,h2)
-	*pV(1,nu,p1,h1)*pVc(1,mu,p1,h1)
+	*pV(1,nu,p1,h1)*pVc(1,mu,p3,h3)
 ;
 #else
 GLOBAL	Born`iu'`id'`fu'`fd' =
    + i_*Ub(ii,p4,h4)*vert(1,`id',-`id',nu,ii)*pr(`fu',Q,ii)*vert(1,`fu',-`fu',mu,ii)*U(ii,p2,h2)
 	*pV(1,mu,p1,h1)*pVc(1,nu,p3,h3)
    + i_*Ub(jj,p4,h4)*vert(1,`id',-`id',nu,jj)*pr(`fu',P,jj)*vert(1,`fu',-`fu',mu,jj)*U(jj,p2,h2)
-	*pV(1,nu,p1,h1)*pVc(1,mu,p1,h1)
+	*pV(1,nu,p1,h1)*pVc(1,mu,p3,h3)
 ;
 #endif
 
@@ -60,31 +60,26 @@ GLOBAL	Born`iu'`id'`fu'`fd' =
 id gd(ii,Q) = gd(ii,p1)+gd(ii,p2);
 id gd(jj,P) = gd(jj,p2)-gd(jj,p3);
 
-*#call mya2b(gd7,gd6)
-*#call mya2b(g,e)
-
 print +s;
 .sort :Compton-after-Feynman;
 
 * для Convert()
- #define Iin1 "`iu'";   * anti_fermion |
- #define Iin2 "`id'";   *      fermion | incoming
- #define Ifn3 "`fd'";   *      fermion |
- #define Ifn4 "`fu'";   * anti_fermion | outgoing  
+ #define Iin1 "`iu'";   
+ #define Iin2 "`id'";   
+ #define Ifn3 "`fd'";   
+ #define Ifn4 "`fu'";     
 
 #$error = 0;                 * Error indicator ...*
 #$num = 0;                   * Number of used momenta  (variable!) ...*
-#call DiracEquation(Born`iu'`id'`fu'`fd',1) 
-*#call Convert(1)
+#call DiracEquation(Born`iu'`id'`fu'`fd',1) * попутно конвертируем образовавшиеся массы
 
 .sort :Compton-after-Dirac;
 
 sym pi,alpha,Qs,Ts;
 
-id e^2*den(1,0,Q)=4*pi*alpha/Qs;
-id e^2*den(1,0,P)=4*pi*alpha/Ts;
-*id g^2/ctw^2*den(1,mp?,Q)=4*pi*alpha/Qs*4*chi(mp^2,s);
-*id g^2/ctw^2*den(1,mp?,P)=4*pi*alpha/Ts*4*chi(mp^2,t);
+id e^2=4*pi*alpha;
+id den(1,0,Q)=1/Qs;
+id den(1,0,P)=1/Ts;
 
 print +s;
 .sort :Compton-alpha;
@@ -92,7 +87,35 @@ sym volum;
 
 #call MakeAmpSquare(Born`iu'`id'`fu'`fd',amplitudeSquared,1/4*volum)
 print +s;
+.sort :Compton-squred;
 
+#$isHelicityUsed = 0;
+#call Trace(amplitudeSquared,[born`iu'`id'`fu'`fd'],1,1)
+print +s;
+.sort :Compton-traced;
+
+drop amplitudeSquared;
+.sort :drop amplitudeSquared;;
+sym Us,s,cos;
+
+id volum=1/32/pi/s*d(cos);    
+id p1.p2=1/2*(Qs+pm(`iu')^2+pm(`id')^2);
+id p3.p4=1/2*(Qs+pm(`fd')^2+pm(`fu')^2);
+id p2.p3=-1/2*(Ts+pm(`id')^2+pm(`fd')^2);
+id p1.p4=-1/2*(Ts+pm(`iu')^2+pm(`fu')^2);
+id p2.p4=-1/2*(Us+pm(`id')^2+pm(`fu')^2);
+id p1.p3=-1/2*(Us+pm(`iu')^2+pm(`fd')^2);
+id qel = -1;
+id mgm = 0;
+bracket d,den,pi,alpha,s;
+print +s;
+.sort :kinematics applied;
+
+#if `PeskinNaumov'
+#write "=== WE USE PESKIN-NAUMOV NOTATION ==="
+#else
+#write "=== WE USE SANC NOTATION ==="
+#endif
 .end :Compton-end;
 
 

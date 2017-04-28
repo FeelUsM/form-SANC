@@ -5,7 +5,7 @@
 #define nIndex "15";
 
 sym n;
-dimension n; * после этого не можем пользоваться встроенными g5_, g6_, g7_
+dimension n; * несмотря на это используем trace4, а птом можно и id n = 4;
 
 * === импульсы ===
 vector    p1,...,p`nMomenta',p;
@@ -21,7 +21,7 @@ Set	sHel: h1,...,h`nMomenta';
 
 * === set of Lorentz indices ===
 Index            al,   be,   ga,   mu,   mu1,...,   mu`nIndex',   nu,   nu1,...,   nu`nIndex';
-Set	sIndex:      al,   be,   ga,   mu,   mu1,...,   mu`nIndex',   nu,   nu1,...,   nu`nIndex';
+Set sIndex:      al,   be,   ga,   mu,   mu1,...,   mu`nIndex',   nu,   nu1,...,   nu`nIndex';
 * для комплексного сопряжения
 Index	      smIal,smIbe,smIga,smImu,smImu1,...,smImu`nIndex',smInu,smInu1,...,smInu`nIndex';
 Set	sIndexSm: smIal,smIbe,smIga,smImu,smImu1,...,smImu`nIndex',smInu,smInu1,...,smInu`nIndex';

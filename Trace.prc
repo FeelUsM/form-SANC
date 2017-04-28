@@ -19,7 +19,7 @@
  skip;
  nskip TEMP;                 
 *==============================	
-* -- Step 1: Check whether there are gauge dependent terms ...
+* -- Step 1: Проверяем, присутствуют ли калибровочно-зависимые термы ...
 *============================== 
  #ifdef `debug' 
     #write " ## >>>>>> Checking for a gauge dependence...";
@@ -37,13 +37,13 @@
  #call SetFlags()
  
 *==============================	
-* -- Step 2: use the completeness relation for bispinors 
-*            and construct the traces
+* -- Step 2: используем соотношение полноты для биспиноров
+*            и конструируем следы
 *==============================            
 *
-*   -- Step 2-1 : regroup the currents in the TEMP expression in such 
-*      a way that the proper currents are placed side by side in order 
-*      to use the completeness relation and construct traces.
+*   -- Step 2-1 : перегруппировываем токи в соотношении TEMP таким образом, что 
+*      правильные токи помещаются друг за другом 
+*      для использования соотношения полноты и конструирования следов.
 *------------------------------
  #ifdef `debug' 
     #write " ## >>>>>> Preparing expression for a trace...";
@@ -52,27 +52,27 @@
  if ( match(Vb?suf(?a)) );
      $spI = 1;                 
      repeat;            
-* begin from the first left current Vb(.)*...*U(.)*...*Ub(.)*...*V(.)
-       id once Vb?suf(i?,p?sMom,h?sHel,?a) = axgd*Vb(i,p,h,?a);
+* начинаем с самого левого тока Vb(.)*...*U(.)*...*Ub(.)*...*V(.)
+       id once        Vb?suf(i?,p?sMom,h?sHel,?a)               =             axgd*Vb(i,p,h,?a);
        repeat id axgd*Vb?suf(i?,p?sMom,h?sHel,?a)*gd?sgd(i?,?b) = gd($spI,?b)*axgd*Vb(i,p,h,?a);
-* if this completes the whole trace do it and change $spI for next trace
-       if ( match(axgd*Vb?suf[ppp](i?,p?sMom,h?sHel,?a)*V?spf[ppp](i?,p?sMom,h?sHel,?b)) );
-           id axgd*Vb?suf[ppp](i?,p?sMom,h?sHel,?a)*V?spf[ppp](i?,p?sMom,h?sHel,?b) = cR($spI,ppp,p);
+* если начало текущего тока совпало с его концом, создаем след and change $spI for next trace
+       if ( match(axgd*Vb?suf[ppp](i?,p?sMom,h?sHel,?a)* V?spf[ppp](i?,p?sMom,h?sHel,?b)) );
+           id     axgd*Vb?suf[ppp](i?,p?sMom,h?sHel,?a)* V?spf[ppp](i?,p?sMom,h?sHel,?b) = cR($spI,ppp,p);
            $spI = $spI + 1;                                   
-* esle try to find other currnet, which completes the trace...
+* иначе пытаемся найти другой ток, который следовало бы поставить мосле текущего...
        else;               
-           id axgd*Vb?suf[ppp](i?,p?sMom,h?sHel,?a)*V?spf[ppp1](i?,p1?sMom,h1?sHel,?b) = 
-                                                 sf(1,ppp,i,p,h)*V(-1,i,p1,h1,?b)*sf(2,ppp1,i,p1,h1);
+           id     axgd*Vb?suf[ppp](i?,p?sMom,h?sHel,?a)*V?spf[ppp1](i?,p1?sMom,h1?sHel,?b) = 
+                                                sf(1,ppp,i,p,h)*V(-1,i,p1,h1,?b)*sf(2,ppp1,i,p1,h1);
        endif;
-* ...so, try to find
+* ...идем его искать
        while ( match(sf(?a)) );
-* if there is a proper Vb(..) term...
+* если присутствует подходящий Vb(..) term...
             if ( match(sf(2,ppp?,i?,p?,h?)*Vb?suf[ppp](j?,p?,h?,?a)) );
-* ...then, collect terms "Vb(..)*..*V(..)" inside the function sf(2,..)
+* ...then, засовываем term-ы "Vb(..)*..*V(..)" внутрь функции sf(2,..)
                 id once sf(2,ppp?,i?,p?,h?)*Vb?suf[ppp](j?,p?,h?,?a) = sf(2,Vb(j,p,h),ppp,i,p,h)*axgd(j);
-                repeat id sf(2,?b)*axgd(j?)*gd?sgd(j?,?c) = sf(2,gd($spI,?c),?b)*axgd(j);
-                id once sf(2,?b)*axgd(j?)*V?spf(j?,p1?sMom,h1?sHel,?c) = sf(2,V(j,p1,h1),?b);
-* esle exit, because the expression seems to be incorrect
+                repeat id sf(2,?b)*axgd(j?)*gd?sgd(j?,?c)                = sf(2,gd($spI,?c),?b)*axgd(j);
+                id once   sf(2,?b)*axgd(j?)*V?spf(j?,p1?sMom,h1?sHel,?c) = sf(2,V(j,p1,h1),?b);
+* иначе exit, потому что выражение выглядит некорректным
             else;
                id sf(2,ppp?$x1,?a$x2) = sf(2,ppp,?a);
                $pf = spf[$x1]; 
@@ -80,21 +80,21 @@
                print " ## ERROR: can\'t find a pair for  \"%$(%$)\" in expression: `expressionIn'",$pf,$x2;      
                exit;
             endif;
-* move the collected sf(2,V(),..,Vb(),?a) to the first current and extract*
-            id once sf(2,U?spf(?a),?b)*V?spf(-1,?c) = V(-1,?c)*sf(2,?b)*U(-2,?a);
+* извлекаем засунутое в sf(2,V(),..,Vb(),?a) после первого тока
+            id once   sf(2,U?spf(?a), ?b)*V?spf(-1,?c) = V(-1,?c)*sf(2,?b)*U(-2,?a);
             repeat id sf(2,gd?sgd(?a),?b)*V?spf(-1,?c) = V(-1,?c)*sf(2,?b)*gd(?a);
-            id once sf(2,Vb?suf(?a),?b)*V?spf[ppp](-1,i?,p?,?c) = cR($spI,ppp,p); 
-* if this completes the hole trace do it and change $spI for next trace*
+            id once   sf(2,Vb?suf(?a),?b)*V?spf[ppp](-1,i?,p?,?c) = cR($spI,ppp,p); 
+* если конец добавленного тока совпадает с началом первого, создаем след and change $spI for next trace*
             if ( match(sf(1,ppp?,i?,p?,h?)*U?spf[ppp](-2,j?,p?,h?,?a))); 
                id once sf(1,ppp?,i?,p?,h?)*U?spf[ppp](-2,j?,p?,h?,?a) = cR($spI,ppp,p);
                $spI = $spI + 1;             
-* else proceed the loop "while (match(sf(?a)));..."*
+* иначе продолжаем цикл "while (match(sf(?a)));..."*
             else;
                id once U?spf[ppp](-2,j?,p?,h?,?a) = U(-1,j,p,h,?a)*sf(2,ppp,j,p,h);
             endif;
        endwhile;
      endrepeat;
-* save the maximal value of the spin line index. Need this below in trace4
+* сохраняем максимальное значение спиновых индексов. Это потребуется ниже для trace4
      if ($spI > $spIMax) $spIMax = $spI;
  endif;
 
@@ -109,16 +109,27 @@
  id gd5(i?)    = g5_(i);
  id gd6(i?)    = g6_(i);
  id gd7(i?)    = g7_(i); 
+#if `PeskinNaumov'
+ id cR(i?,ppp?,p?sMom[mmm]) = g_(i,p) + (-1)^ppp*sMas[mmm]*gI_(i);
+#else
  id cR(i?,ppp?,p?sMom[mmm]) = -i_*g_(i,p) + (-1)^ppp*sMas[mmm]*gI_(i);
+#endif
  
 *==============================
 * -- Step 3: use completeness relation for polarization vectors
 *============================== 
+#if `PeskinNaumov'
+**  id pV(23,mu1?,p?sMom,h?sHel,gi1?sAgi)*pVc(23,nu1?,p?sMom,h?sHel,gi2?sAgi) = d_(mu1,nu1); 
+  id pV(1,mu1?,p?sMom,h?sHel,?a)*pVc(1,nu1?,p?sMom,h?sHel,?b) = - d_(mu1,nu1);
+  id pV(n1?{2,3,-3},mu1?,p?sMom[mmm],h?sHel,?a)*pVc(n1?{2,3,-3},nu1?,p?sMom[mmm],h?sHel,?b) =
+                                                     - d_(mu1,nu1) + p(mu1)*p(nu1)/sMas[mmm]/sMas[mmm];
+#else
   id pV(23,mu1?,p?sMom,h?sHel,gi1?sAgi)*pVc(23,nu1?,p?sMom,h?sHel,gi2?sAgi) = d_(mu1,nu1); 
   id pV(1,mu1?,p?sMom,h?sHel,?a)*pVc(1,nu1?,p?sMom,h?sHel,?b) = d_(mu1,nu1);
-  id pV(s?{2,3,-3},mu1?,p?sMom[mmm],h?sHel,?a)*pVc(s?{2,3,-3},nu1?,p?sMom[mmm],h?sHel,?b) =
+  id pV(n1?{2,3,-3},mu1?,p?sMom[mmm],h?sHel,?a)*pVc(n1?{2,3,-3},nu1?,p?sMom[mmm],h?sHel,?b) =
                                                       d_(mu1,nu1) + p(mu1)*p(nu1)/sMas[mmm]/sMas[mmm];
- 
+#endif
+						      
 * -- Convert masses into the internal notation ...*
  #if ((`cIndex' <= 3) && (`cIndex' >= 0))
      #call Convert(`cIndex')
@@ -127,9 +138,9 @@
 *==============================
 * -- Step 4: deal with QCD gauge group generators if any
 *==============================
- #call QCDAlgebra();
+** #call QCDAlgebra();
 
-.sort
+.sort :spin-summation-done;
 
  skip;
  nskip TEMP; 
@@ -165,11 +176,11 @@
      #call SetFlags()
  #endif
   
-.sort
+.sort :trace-end-start;
  #call Stop()
  drop TEMP;
  G `expressionOut' = TEMP;
-.sort
+.sort :trace-end-end;
 
 #endprocedure
 *------------

@@ -16,6 +16,8 @@
  #endif
 * #write "Ceonverting from 1 to `$nLoop'"
  #do i=1,`$nLoop'
+	
+	id p`i'.p`i' = m`i'*m`i';
 
     #ifdef `Im`i'';
 	#write "Convert `i': `Im`i''";
