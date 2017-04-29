@@ -13,7 +13,7 @@ Sym n1,n2;
 index i;
 Cfun	sf;	* for internal use
 #include Declare.h
-#include Feynman.h;
+#include Parameters.h;
 #call Globals()
 
 

@@ -14,7 +14,7 @@
 
  Global TEMP = `expressionIn';            * temporary global for substitutions ...*
 
-.sort
+.sort :trace-start;
  
  skip;
  nskip TEMP;                 
@@ -140,7 +140,10 @@
 *==============================
 ** #call QCDAlgebra();
 
+bracket volum,e,den;
+print +s;
 .sort :spin-summation-done;
+#write "=== SPIN-SUMMED ==="
 
  skip;
  nskip TEMP; 

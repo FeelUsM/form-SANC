@@ -29,6 +29,10 @@
 *=============================================	
  
  #call Hermitian(`expressionIn',TEMP);
+bracket e;
+print +s;
+.sort :after-Hermitian;
+#write "=== HERMITIAN ==="
 
 *=============================================
 * -- Step 2: меняем лоренцевские индексы суммирования

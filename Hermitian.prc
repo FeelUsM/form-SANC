@@ -143,7 +143,6 @@ sym	ggg;
 .sort :Hermitian-end-start;
  drop TEMP;
  Global `expressionOut' = TEMP;
- print +s;
 .sort :Hermitian-end-end;
 
 #endprocedure

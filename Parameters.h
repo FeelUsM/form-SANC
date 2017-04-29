@@ -1,5 +1,5 @@
-#if `FeynmanH'
-#redefine FeynmanH "0"
+#ifndef `$ParametersH'
+#$ParametersH = 1;
 
 * === Дираковские матрицы ===
 * Nfun	axgd,gd4,gdI,cR,pr;		 * gd4 - Dirac gamma_{4}...

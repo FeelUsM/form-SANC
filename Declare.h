@@ -1,5 +1,5 @@
-#if `MyDeclareH'
-#redefine MyDeclareH "0"
+#ifndef `$DeclareH'
+#$DeclareH = 1 ;
 
 #define nMomenta "9";
 #define nIndex "15";

@@ -5,7 +5,7 @@
 *------------------
 
 .sort :mya2bStart;
-#include Feynman.h;
+#include Parameters.h;
 
 * x3,+argument:
 *37    id `qup'= `qdn'+1;

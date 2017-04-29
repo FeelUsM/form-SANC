@@ -17,7 +17,9 @@
 * #write "Ceonverting from 1 to `$nLoop'"
  #do i=1,`$nLoop'
 	
+    #if `$mom2mas'
 	id p`i'.p`i' = m`i'*m`i';
+    #endif
 
     #ifdef `Im`i'';
 	#write "Convert `i': `Im`i''";
