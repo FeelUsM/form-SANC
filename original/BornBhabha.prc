@@ -57,12 +57,30 @@ id g^2/ctw^2*den(1,mp?,P)=4*pi*alpha/Ts*4*chi(mp^2,t);
 drop amplitudeSquared;
 .sort
 *id volum=1/32/pi/s*d(cos);    
-id p1.p2=1/2*(Qs+pm(`iu')^2+pm(`id')^2);
-id p3.p4=1/2*(Qs+pm(`fd')^2+pm(`fu')^2);
-id p2.p3=-1/2*(Ts+pm(`id')^2+pm(`fd')^2);
-id p1.p4=-1/2*(Ts+pm(`iu')^2+pm(`fu')^2);
-id p2.p4=-1/2*(Us+pm(`id')^2+pm(`fu')^2);
-id p1.p3=-1/2*(Us+pm(`iu')^2+pm(`fd')^2);
-.sort
+id p1.p2=1/2*(SS-pm(`iu')^2-pm(`id')^2);
+id p3.p4=1/2*(SS-pm(`fd')^2-pm(`fu')^2);
+id p2.p3=-1/2*(UU-pm(`id')^2-pm(`fd')^2);
+id p1.p4=-1/2*(UU-pm(`iu')^2-pm(`fu')^2);
+id p2.p4=-1/2*(TT-pm(`id')^2-pm(`fu')^2);
+id p1.p3=-1/2*(TT-pm(`iu')^2-pm(`fd')^2);
+id TT = pm(`iu')^2+pm(`id')^2+pm(`fu')^2+pm(`fd')^2-SS-UU;
+id mgm = 0;
+
+bracket volum,e,den;
+print +s;
+.sort :kinematics applied-1;
+#write "=== KINEMATICS-1 ==="
+
+id den(1,mel,Q)=1/2/p1.p2;
+id den(1,mel,P)=-1/2/p3.p2;
+id SS = mel^2+2*p1.p2;
+id UU = mel^2-2*p2.p3;
+
+bracket volum,e,mel;
+print +s;
+.sort :kinematics applied-2;
+#write "=== KINEMATICS-2 ==="
+
+.end
 #endprocedure
 *------------

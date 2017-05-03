@@ -129,7 +129,10 @@
 *==============================
  #call QCDAlgebra();
 
-.sort
+bracket volum,e,den;
+print +s;
+.sort :spin-summation-done;
+#write "=== SPIN-SUMMED ==="
 
  skip;
  nskip TEMP; 

@@ -2,6 +2,9 @@
 #ifndef `myGlobalH'
 #define myGlobalH "1"
 
+.sort :Globals-start;
+#include Parameters.h
+
 * Filling of arrays				* Globals.prc
 * === Electric charges ===
 Table c(1:24);

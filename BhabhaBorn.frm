@@ -1,23 +1,22 @@
+*---------------------------------
 *                                   p1+p2 = p3+p4
 *             s - channel                                    t - channel
 *
-*       photon          particle                     photon    particle      
-*        iu,p1           fu,p4                        iu,p1     fu,p4        
-*          mu             ii                           mu        jj      
-*           \             /                              \       /           
-*            -           /                                -     /            
-*             \   Q     /                                  \   /             
-*     vert(mu,ii)-----vert(nu,ii)                      vert(mu,jj)
-*             /         \                                    |
-*            /           -                                   | P
-*           /             \                                  |
-*         ii              nu                           vert(nu,jj)
-*        id,p2           fd,p3                             /   \             
-*       particle        photon                            /     -            
-*                                                        /       \           
-*                                                       jj       nu        
-*                                                     id,p2     fd,p3        
-*                                                    particle  photon        
+*     anti-particle  anti-particle                anti-particle          anti-particle
+*        iu,p1           fu,p4                     iu,p1,ii,nu            fu,p4,ii,nu  
+*        ii,nu           jj,mu                                 vert(vb,fu,iu) 
+*           \             /                              <----------/<----------
+*            \           /                                          \         
+*             \   Q     /                                           / P
+*  vert(vb,id,iu)/\/\/\/(vert(vb,fu,fd)                             \
+*             /         \                                           /
+*            /           \                               ---------->\---------->
+*           /             \                                   vert(vb,id,fd) 
+*        ii,nu           jj,mu                           
+*        id,p2           fd,p3                      id,p2,jj,mu           fd,p3,jj,mu 
+*       particle       particle                      particle               particle
+*
+*
 
 #ifndef `PeskinNaumov'
   #define PeskinNaumov "1"
@@ -35,35 +34,36 @@
 #include Declare.h
 #+
 
-#define iu  "1"
+#define iu  "12"
 #define id  "12"
-#define fu  "12"
-#define fd  "1"
+#define fu  "16"
+#define fd  "16"
 
 vector Q,P;
 
-#if `PeskinNaumov'
-GLOBAL	Born`iu'`id'`fu'`fd' =
-   + Ub(ii,p4,h4)*vert(1,`id',-`id',nu,ii)*pr(`fu',Q,ii)*vert(1,`fu',-`fu',mu,ii)*U(ii,p2,h2)
-	*pV(1,mu,p1,h1)*pVc(1,nu,p3,h3)
-   + Ub(jj,p4,h4)*vert(1,`id',-`id',mu,jj)*pr(`fu',P,jj)*vert(1,`fu',-`fu',nu,jj)*U(jj,p2,h2)
-	*pV(1,mu,p1,h1)*pVc(1,nu,p3,h3)
+GLOBAL Born`iu'`id'`fu'`fd' =
+#do vb={1,2}
+*#define vb "1"
+   + Vb(ii ,p1,h1)*vert(-`vb',`id',-`iu',nu ,ii )*U(ii ,p2,h2)*pr(`vb',nu ,mu ,Q)
+    *Ub(jj ,p3,h3)*vert( `vb',`fu',-`fd',mu ,jj )*V(jj ,p4,h4)
+   - Ub(ii2,p3,h3)*vert(-`vb',`id',-`fd',mu1,ii2)*U(ii2,p2,h2)*pr(`vb',nu1,mu1,P)
+    *Vb(ii1,p1,h1)*vert( `vb',`fu',-`iu',nu1,ii1)*V(ii1,p4,h4)
+#enddo
 ;
-#else
-GLOBAL	Born`iu'`id'`fu'`fd' =
-   + i_*Ub(ii,p4,h4)*vert(1,`id',-`id',nu,ii)*pr(`fu',Q,ii)*vert(1,`fu',-`fu',mu,ii)*U(ii,p2,h2)
-	*pV(1,mu,p1,h1)*pVc(1,nu,p3,h3)
-   + i_*Ub(jj,p4,h4)*vert(1,`id',-`id',mu,jj)*pr(`fu',P,jj)*vert(1,`fu',-`fu',nu,jj)*U(jj,p2,h2)
-	*pV(1,mu,p1,h1)*pVc(1,nu,p3,h3)
-;
-#endif
+#write "=== born created ==="
+print +s;
+.sort:born created;
 
-#call FeynmanRules(0); * QED
+#call FeynmanRules(1); * EW считет быстрее
 id qel = -1;
+id qmo = -1;
+id vert(?e) = 0;
 
 * в знаменателях P и Q оставляем как есть, а вот гаммы-дирака раскрываем
 id gd(ii,Q) = gd(ii,p1)+gd(ii,p2);
-id gd(jj,P) = gd(jj,p2)-gd(jj,p3);
+id gd(jj,Q) = gd(jj,p3)+gd(jj,p4);
+id gd(ii1,P)=-gd(ii1,p1)+gd(ii1,p4);
+id gd(ii2,P)= gd(ii2,p2)-gd(ii2,p3);
 
 bracket e;
 print +s;
@@ -79,7 +79,7 @@ print +s;
 #$error = 0;                 * Error indicator ...*
 #$num = 0;                   * Number of used momenta  (variable!) ...*
 #ifndef `useDirac'
-  #define useDirac "1"
+  #define useDirac "0"
 #endif
 #if `useDirac'
   #call DiracEquation(Born`iu'`id'`fu'`fd',1) * попутно конвертируем образовавшиеся массы
@@ -123,19 +123,17 @@ id p1.p4=-1/2*(UU-pm(`iu')^2-pm(`fu')^2);
 id p2.p4=-1/2*(TT-pm(`id')^2-pm(`fu')^2);
 id p1.p3=-1/2*(TT-pm(`iu')^2-pm(`fd')^2);
 id TT = pm(`iu')^2+pm(`id')^2+pm(`fu')^2+pm(`fd')^2-SS-UU;
-id mgm = 0;
+id mel = 0;
 
 bracket volum,e,den;
 print +s;
 .sort :kinematics applied-1;
 #write "=== KINEMATICS-1 ==="
 
-id den(1,mel,Q)=1/2/p1.p2;
-id den(1,mel,P)=-1/2/p3.p2;
-id SS = mel^2+2*p1.p2;
-id UU = mel^2-2*p2.p3;
+*id SS = mel^2+2*p1.p2;
+id UU = mmo^2-2*p2.p3;
 
-bracket volum,e,mel;
+bracket volum,e,mmo,den;
 print +s;
 .sort :kinematics applied-2;
 #write "=== KINEMATICS-2 ==="

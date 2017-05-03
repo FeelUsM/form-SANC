@@ -71,11 +71,11 @@ sym	mmm,uuu,ppp;
 *==============================
     if (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));				* if_match sf(ii,p)*gd(ii,p)
        #call GammaRight();								* GammaRight();
-       #if `PeskinNaumov'
-	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];	* \hat p*\hat p -> +m^2
-       #else
-	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];	* \hat p*\hat p -> -m^2
-       #endif
+      #if `PeskinNaumov'
+       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];	* \hat p*\hat p -> +m^2
+      #else
+       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];	* \hat p*\hat p -> -m^2
+      #endif
     endif;
 
 *==============================
@@ -151,11 +151,11 @@ sym	mmm,uuu,ppp;
 
     if (match(sf(ii?sSLI,p?sMom,?a)*gd(ii?sSLI,p?sMom)));
        #call GammaLeft()
-       #if `PeskinNaumov'
-	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];
-       #else
-	id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];
-       #endif
+      #if `PeskinNaumov'
+       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = + sMas[mmm]*sMas[mmm];
+      #else
+       id gd(ii?sSLI,p?sMom[mmm])*gd(ii?sSLI,p?sMom[mmm]) = - sMas[mmm]*sMas[mmm];
+      #endif
     endif;
 
 #if `PeskinNaumov'

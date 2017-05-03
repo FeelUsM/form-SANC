@@ -6,14 +6,13 @@
 #define gd6pgd7eq2 "0"
 * устраняется при помощи #call mya2b(gd7,gd6) или еще проще Feynman(0)
 
-.sort :FeynmanStart;
+.sort :Feynman-Start;
 #include Misc.h
 vector p,q,k; * в трехбозонных вершинах
 Sym n1,n2;
 index i;
 Cfun	sf;	* for internal use
 #include Declare.h
-#include Parameters.h;
 #call Globals()
 
 
