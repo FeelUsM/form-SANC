@@ -10,7 +10,7 @@ mv ComptonBorn.log ComptonBorn-Peskin-notDirac.log
 form -D PeskinNaumov=0 -D useDirac=1 -l ComptonBorn.frm
 mv ComptonBorn.log ComptonBorn-SANC.log
 
-form -D PeskinNaumov=1 -D useDirac=0 -l ComptonBorn.frm
+form -D PeskinNaumov=0 -D useDirac=0 -l ComptonBorn.frm
 mv ComptonBorn.log ComptonBorn-SANC-notDirac.log
 
 cd original
