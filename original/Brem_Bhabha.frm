@@ -80,11 +80,6 @@ cf IZ1,IZ2,IZ3,IZ4,Z1,Z2,Z3,Z4;
 #include Declar.h
 #call Globals()
 *
-#define typeIU  "12"
-#define typeID  "12"
-#define typeFU  "12"
-#define typeFD  "12"
-
 #ifdef `typeIU'
 #ifdef `typeID'
 #ifdef `typeFU'
@@ -102,12 +97,12 @@ cf IZ1,IZ2,IZ3,IZ4,Z1,Z2,Z3,Z4;
 * program
 *--------
 .sort
-s BORN`typeIU'`typeID'`typeFU'`typeFD';
+*s BORN`typeIU'`typeID'`typeFU'`typeFD';
 #call BornBhabha(`typeIU',`typeID',`typeFU',`typeFD')
 .sort
 on stat;
 id mel=0;
-b g,stw,ctw,volum,prop,qel,chi,chic,pi,alpha,vmael,vpael;
+*b g,stw,ctw,volum,prop,qel,chi,chic,pi,alpha,vmael,vpael;
 *print Born`typeIU'`typeID'`typeFU'`typeFD';
 *print [born`typeIU'`typeID'`typeFU'`typeFD'];
 Print;

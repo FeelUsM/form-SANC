@@ -28,14 +28,11 @@
 * -- Step 1: make hermitian conjugation. Output is saved in TEMP
 *=============================================	
  #call Hermitian(`expressionIn',TEMP);
-bracket e;
-print +s;
-.sort :after-Hermitian;
-#write "=== HERMITIAN ==="
 
 *=============================================
 * -- Step 2: change the Lorentz summation indices
 *=============================================
+.sort
 
 *// DEBUG - DEBUG - DEBUG - DEBUG
  #$sumIndexMax = 0;
@@ -107,10 +104,7 @@ print +s;
 *=============================================	
 * -- Step 3: change the color summation indices
 *=============================================
-bracket e,den;
-print +s;
-.sort :after-QCDAlgebra;
-#write "=== BEFORE-QCD-ALGEBRA ==="
+.sort 
 
  #$giSMax = 0;
  #$giS = 0;

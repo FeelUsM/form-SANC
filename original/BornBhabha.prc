@@ -20,27 +20,22 @@
 *
 .sort
 g Born`iu'`id'`fu'`fd' =
-#do vb={1,2}
+#do vb={1,2,4,5}
    + i_*Vb(ii,p1,h1)*vert(-`vb',`id',-`iu',nu,ii)*U(ii,p2,h2)*pr(`vb',nu,mu,Q)
        *Ub(jj,p3,h3)*vert(`vb',`fu',-`fd',mu,jj)*V(jj,p4,h4)
    - i_*Ub(ii2,p3,h3)*vert(-`vb',`id',-`fd',mu1,ii2)*U(ii2,p2,h2)*pr(`vb',nu1,mu1,P)
        *Vb(ii1,p1,h1)*vert(`vb',`fu',-`iu',nu1,ii1)*V(ii1,p4,h4)
 #enddo
 ;
-print +s;
-.sort:born created;
-
+.sort
+*
 #call FeynmanRules(1)
-print +s;
-.sort:FeynmanRules applied;
-
+.sort
 id gd(ii,Q) = gd(ii,p1)+gd(ii,p2);
 id gd(jj,Q) = gd(jj,p3)+gd(jj,p4);
 id gd(ii1,P)=-gd(ii1,p1)+gd(ii1,p4);
 id gd(ii2,P)= gd(ii2,p2)-gd(ii2,p3);
-print +s;
-.sort:Q and P expanded;
-
+.sort
 #call DiracEquation(Born`iu'`id'`fu'`fd',-1)
 #call Convert(1)
 #call a2b(gd7,gd6)
@@ -57,30 +52,12 @@ id g^2/ctw^2*den(1,mp?,P)=4*pi*alpha/Ts*4*chi(mp^2,t);
 drop amplitudeSquared;
 .sort
 *id volum=1/32/pi/s*d(cos);    
-id p1.p2=1/2*(SS-pm(`iu')^2-pm(`id')^2);
-id p3.p4=1/2*(SS-pm(`fd')^2-pm(`fu')^2);
-id p2.p3=-1/2*(UU-pm(`id')^2-pm(`fd')^2);
-id p1.p4=-1/2*(UU-pm(`iu')^2-pm(`fu')^2);
-id p2.p4=-1/2*(TT-pm(`id')^2-pm(`fu')^2);
-id p1.p3=-1/2*(TT-pm(`iu')^2-pm(`fd')^2);
-id TT = pm(`iu')^2+pm(`id')^2+pm(`fu')^2+pm(`fd')^2-SS-UU;
-id mgm = 0;
-
-bracket volum,e,den;
-print +s;
-.sort :kinematics applied-1;
-#write "=== KINEMATICS-1 ==="
-
-id den(1,mel,Q)=1/2/p1.p2;
-id den(1,mel,P)=-1/2/p3.p2;
-id SS = mel^2+2*p1.p2;
-id UU = mel^2-2*p2.p3;
-
-bracket volum,e,mel;
-print +s;
-.sort :kinematics applied-2;
-#write "=== KINEMATICS-2 ==="
-
-.end
+id p1.p2=1/2*(Qs+pm(`iu')^2+pm(`id')^2);
+id p3.p4=1/2*(Qs+pm(`fd')^2+pm(`fu')^2);
+id p2.p3=-1/2*(Ts+pm(`id')^2+pm(`fd')^2);
+id p1.p4=-1/2*(Ts+pm(`iu')^2+pm(`fu')^2);
+id p2.p4=-1/2*(Us+pm(`id')^2+pm(`fu')^2);
+id p1.p3=-1/2*(Us+pm(`iu')^2+pm(`fd')^2);
+.sort
 #endprocedure
 *------------

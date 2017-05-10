@@ -1,4 +1,4 @@
-FORM 4.1 (Sep  9 2016) 64-bits                   Run: Fri Apr  7 16:39:07 2017
+FORM 4.1 (Sep  9 2016) 64-bits                   Run: Sat Apr  8 10:48:01 2017
     *============================================================================
     *                                                                           
     *                File: Brem_Bhabha.frm                                  
@@ -102,132 +102,94 @@ FORM 4.1 (Sep  9 2016) 64-bits                   Run: Fri Apr  7 16:39:07 2017
     * program
     *--------
     .sort
-    s BORN`typeIU'`typeID'`typeFU'`typeFD';
+    *s BORN`typeIU'`typeID'`typeFU'`typeFD';
     #call BornBhabha(`typeIU',`typeID',`typeFU',`typeFD')
     .sort
     on stat;
     id mel=0;
-    b g,stw,ctw,volum,prop,qel,chi,chic,pi,alpha,vmael,vpael;
+    *b g,stw,ctw,volum,prop,qel,chi,chic,pi,alpha,vmael,vpael;
     *print Born`typeIU'`typeID'`typeFU'`typeFD';
     *print [born`typeIU'`typeID'`typeFU'`typeFD'];
     Print;
     .store
 
-Time =       0.68 sec    Generated terms =         18
+Time =       0.66 sec    Generated terms =         18
     Born12121212         Terms in output =         18
-                         Bytes used      =       3840
+                         Bytes used      =       2652
 
-Time =       0.68 sec    Generated terms =         35
+Time =       0.66 sec    Generated terms =         35
   [born12121212]         Terms in output =         35
-                         Bytes used      =       3056
+                         Bytes used      =       2828
 
    Born12121212 =
-       + pi*alpha*qel^2 * ( 4*Ub(ii2,p3,h3)*gd(ii2,mu1)*U(ii2,p2,h2)*Vb(ii1,p1
-         ,h1)*gd(ii1,mu1)*V(ii1,p4,h4)*i_*Ts^-1 - 4*Vb(ii,p1,h1)*gd(ii,mu)*U(
-         ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*V(jj,p4,h4)*i_*Qs^-1 )
-
-       + chi(mz^2,s)*pi*alpha*vmael^2 * (  - Vb(ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(
-         ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*gd6(jj)*V(jj,p4,h4)*i_*Qs^-1 + 2*Vb(
-         ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*V(jj,
-         p4,h4)*i_*Qs^-1 + 2*Vb(ii,p1,h1)*gd(ii,mu)*U(ii,p2,h2)*Ub(jj,p3,h3)*
-         gd(jj,mu)*gd6(jj)*V(jj,p4,h4)*i_*Qs^-1 - 4*Vb(ii,p1,h1)*gd(ii,mu)*U(
-         ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*V(jj,p4,h4)*i_*Qs^-1 )
-
-       + chi(mz^2,s)*pi*alpha*vpael*vmael * ( 2*Vb(ii,p1,h1)*gd(ii,mu)*gd6(ii)
-         *U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*gd6(jj)*V(jj,p4,h4)*i_*Qs^-1 - 2*
-         Vb(ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*V(
-         jj,p4,h4)*i_*Qs^-1 - 2*Vb(ii,p1,h1)*gd(ii,mu)*U(ii,p2,h2)*Ub(jj,p3,h3
-         )*gd(jj,mu)*gd6(jj)*V(jj,p4,h4)*i_*Qs^-1 )
-
-       + chi(mz^2,s)*pi*alpha*vpael^2 * (  - Vb(ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(
-         ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*gd6(jj)*V(jj,p4,h4)*i_*Qs^-1 )
-
-       + chi(mz^2,t)*pi*alpha*vmael^2 * ( Ub(ii2,p3,h3)*gd(ii2,mu1)*gd6(ii2)*
-         U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(ii1)*V(ii1,p4,h4)*i_*Ts^-1
-          - 2*Ub(ii2,p3,h3)*gd(ii2,mu1)*gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*
-         gd(ii1,mu1)*V(ii1,p4,h4)*i_*Ts^-1 - 2*Ub(ii2,p3,h3)*gd(ii2,mu1)*U(ii2
-         ,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(ii1)*V(ii1,p4,h4)*i_*Ts^-1 + 4*
-         Ub(ii2,p3,h3)*gd(ii2,mu1)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*V(
-         ii1,p4,h4)*i_*Ts^-1 )
-
-       + chi(mz^2,t)*pi*alpha*vpael*vmael * (  - 2*Ub(ii2,p3,h3)*gd(ii2,mu1)*
-         gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(ii1)*V(ii1,p4,h4)
-         *i_*Ts^-1 + 2*Ub(ii2,p3,h3)*gd(ii2,mu1)*gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,
-         p1,h1)*gd(ii1,mu1)*V(ii1,p4,h4)*i_*Ts^-1 + 2*Ub(ii2,p3,h3)*gd(ii2,mu1
-         )*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(ii1)*V(ii1,p4,h4)*i_*
-         Ts^-1 )
-
-       + chi(mz^2,t)*pi*alpha*vpael^2 * ( Ub(ii2,p3,h3)*gd(ii2,mu1)*gd6(ii2)*
-         U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(ii1)*V(ii1,p4,h4)*i_*Ts^-1
-          );
+      Ub(ii2,p3,h3)*gd(ii2,mu1)*gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1
+      )*gd6(ii1)*V(ii1,p4,h4)*chi(mz^2,t)*i_*pi*alpha*vmael^2*Ts^-1 - 2*Ub(ii2
+      ,p3,h3)*gd(ii2,mu1)*gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(
+      ii1)*V(ii1,p4,h4)*chi(mz^2,t)*i_*pi*alpha*vpael*vmael*Ts^-1 + Ub(ii2,p3,
+      h3)*gd(ii2,mu1)*gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(ii1)
+      *V(ii1,p4,h4)*chi(mz^2,t)*i_*pi*alpha*vpael^2*Ts^-1 - 2*Ub(ii2,p3,h3)*
+      gd(ii2,mu1)*gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*V(ii1,p4,h4)
+      *chi(mz^2,t)*i_*pi*alpha*vmael^2*Ts^-1 + 2*Ub(ii2,p3,h3)*gd(ii2,mu1)*
+      gd6(ii2)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*V(ii1,p4,h4)*chi(mz^2,t)
+      *i_*pi*alpha*vpael*vmael*Ts^-1 - 2*Ub(ii2,p3,h3)*gd(ii2,mu1)*U(ii2,p2,h2
+      )*Vb(ii1,p1,h1)*gd(ii1,mu1)*gd6(ii1)*V(ii1,p4,h4)*chi(mz^2,t)*i_*pi*
+      alpha*vmael^2*Ts^-1 + 2*Ub(ii2,p3,h3)*gd(ii2,mu1)*U(ii2,p2,h2)*Vb(ii1,p1
+      ,h1)*gd(ii1,mu1)*gd6(ii1)*V(ii1,p4,h4)*chi(mz^2,t)*i_*pi*alpha*vpael*
+      vmael*Ts^-1 + 4*Ub(ii2,p3,h3)*gd(ii2,mu1)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(
+      ii1,mu1)*V(ii1,p4,h4)*i_*pi*alpha*qel^2*Ts^-1 + 4*Ub(ii2,p3,h3)*gd(ii2,
+      mu1)*U(ii2,p2,h2)*Vb(ii1,p1,h1)*gd(ii1,mu1)*V(ii1,p4,h4)*chi(mz^2,t)*i_*
+      pi*alpha*vmael^2*Ts^-1 - Vb(ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(ii,p2,h2)*Ub(
+      jj,p3,h3)*gd(jj,mu)*gd6(jj)*V(jj,p4,h4)*chi(mz^2,s)*i_*pi*alpha*vmael^2*
+      Qs^-1 + 2*Vb(ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,
+      mu)*gd6(jj)*V(jj,p4,h4)*chi(mz^2,s)*i_*pi*alpha*vpael*vmael*Qs^-1 - Vb(
+      ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*gd6(jj)*
+      V(jj,p4,h4)*chi(mz^2,s)*i_*pi*alpha*vpael^2*Qs^-1 + 2*Vb(ii,p1,h1)*gd(ii
+      ,mu)*gd6(ii)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*V(jj,p4,h4)*chi(mz^2,s)*
+      i_*pi*alpha*vmael^2*Qs^-1 - 2*Vb(ii,p1,h1)*gd(ii,mu)*gd6(ii)*U(ii,p2,h2)
+      *Ub(jj,p3,h3)*gd(jj,mu)*V(jj,p4,h4)*chi(mz^2,s)*i_*pi*alpha*vpael*vmael*
+      Qs^-1 + 2*Vb(ii,p1,h1)*gd(ii,mu)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*gd6(
+      jj)*V(jj,p4,h4)*chi(mz^2,s)*i_*pi*alpha*vmael^2*Qs^-1 - 2*Vb(ii,p1,h1)*
+      gd(ii,mu)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*gd6(jj)*V(jj,p4,h4)*chi(
+      mz^2,s)*i_*pi*alpha*vpael*vmael*Qs^-1 - 4*Vb(ii,p1,h1)*gd(ii,mu)*U(ii,p2
+      ,h2)*Ub(jj,p3,h3)*gd(jj,mu)*V(jj,p4,h4)*i_*pi*alpha*qel^2*Qs^-1 - 4*Vb(
+      ii,p1,h1)*gd(ii,mu)*U(ii,p2,h2)*Ub(jj,p3,h3)*gd(jj,mu)*V(jj,p4,h4)*chi(
+      mz^2,s)*i_*pi*alpha*vmael^2*Qs^-1;
 
    [born12121212] =
-       + pi^2*alpha^2*volum*qel^4 * ( 32*Qs^-2*Us^2 + 32*Qs^-2*Ts^2 + 64*Qs^-1
-         *Ts^-1*Us^2 + 32*Ts^-2*Us^2 + 32*Qs^2*Ts^-2 )
-
-       + chi(mz^2,s)*pi^2*alpha^2*volum*qel^2*vmael^2 * ( 16*Qs^-2*Us^2 + 16*
-         Qs^-1*Ts^-1*Us^2 )
-
-       + chi(mz^2,s)*pi^2*alpha^2*volum*qel^2*vpael*vmael * ( 32*Qs^-2*Ts^2 )
-
-       + chi(mz^2,s)*pi^2*alpha^2*volum*qel^2*vpael^2 * ( 16*Qs^-2*Us^2 + 16*
-         Qs^-1*Ts^-1*Us^2 )
-
-       + chi(mz^2,s)*chic(mz^2,s)*pi^2*alpha^2*volum*vmael^4 * ( 16*Qs^-2*Us^2
-          )
-
-       + chi(mz^2,s)*chic(mz^2,s)*pi^2*alpha^2*volum*vpael^2*vmael^2 * ( 32*
-         Qs^-2*Ts^2 )
-
-       + chi(mz^2,s)*chic(mz^2,s)*pi^2*alpha^2*volum*vpael^4 * ( 16*Qs^-2*Us^2
-          )
-
-       + chi(mz^2,s)*chic(mz^2,t)*pi^2*alpha^2*volum*vmael^4 * ( 16*Qs^-1*
-         Ts^-1*Us^2 )
-
-       + chi(mz^2,s)*chic(mz^2,t)*pi^2*alpha^2*volum*vpael^4 * ( 16*Qs^-1*
-         Ts^-1*Us^2 )
-
-       + chi(mz^2,t)*pi^2*alpha^2*volum*qel^2*vmael^2 * ( 16*Qs^-1*Ts^-1*Us^2
-          + 16*Ts^-2*Us^2 )
-
-       + chi(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael*vmael * ( 32*Qs^2*Ts^-2 )
-
-       + chi(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael^2 * ( 16*Qs^-1*Ts^-1*Us^2
-          + 16*Ts^-2*Us^2 )
-
-       + chi(mz^2,t)*chic(mz^2,s)*pi^2*alpha^2*volum*vmael^4 * ( 16*Qs^-1*
-         Ts^-1*Us^2 )
-
-       + chi(mz^2,t)*chic(mz^2,s)*pi^2*alpha^2*volum*vpael^4 * ( 16*Qs^-1*
-         Ts^-1*Us^2 )
-
-       + chi(mz^2,t)*chic(mz^2,t)*pi^2*alpha^2*volum*vmael^4 * ( 16*Ts^-2*Us^2
-          )
-
-       + chi(mz^2,t)*chic(mz^2,t)*pi^2*alpha^2*volum*vpael^2*vmael^2 * ( 32*
-         Qs^2*Ts^-2 )
-
-       + chi(mz^2,t)*chic(mz^2,t)*pi^2*alpha^2*volum*vpael^4 * ( 16*Ts^-2*Us^2
-          )
-
-       + chic(mz^2,s)*pi^2*alpha^2*volum*qel^2*vmael^2 * ( 16*Qs^-2*Us^2 + 16*
-         Qs^-1*Ts^-1*Us^2 )
-
-       + chic(mz^2,s)*pi^2*alpha^2*volum*qel^2*vpael*vmael * ( 32*Qs^-2*Ts^2 )
-
-       + chic(mz^2,s)*pi^2*alpha^2*volum*qel^2*vpael^2 * ( 16*Qs^-2*Us^2 + 16*
-         Qs^-1*Ts^-1*Us^2 )
-
-       + chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vmael^2 * ( 16*Qs^-1*Ts^-1*Us^2
-          + 16*Ts^-2*Us^2 )
-
-       + chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael*vmael * ( 32*Qs^2*Ts^-2 )
-
-       + chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael^2 * ( 16*Qs^-1*Ts^-1*Us^2
-          + 16*Ts^-2*Us^2 );
+      32*pi^2*alpha^2*volum*qel^4*Qs^-2*Us^2 + 32*pi^2*alpha^2*volum*qel^4*
+      Qs^-2*Ts^2 + 64*pi^2*alpha^2*volum*qel^4*Qs^-1*Ts^-1*Us^2 + 32*pi^2*
+      alpha^2*volum*qel^4*Ts^-2*Us^2 + 32*pi^2*alpha^2*volum*qel^4*Qs^2*Ts^-2
+       + 16*chi(mz^2,s)*pi^2*alpha^2*volum*qel^2*vmael^2*Qs^-2*Us^2 + 16*chi(
+      mz^2,s)*pi^2*alpha^2*volum*qel^2*vmael^2*Qs^-1*Ts^-1*Us^2 + 32*chi(mz^2,
+      s)*pi^2*alpha^2*volum*qel^2*vpael*vmael*Qs^-2*Ts^2 + 16*chi(mz^2,s)*pi^2
+      *alpha^2*volum*qel^2*vpael^2*Qs^-2*Us^2 + 16*chi(mz^2,s)*pi^2*alpha^2*
+      volum*qel^2*vpael^2*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,s)*chic(mz^2,s)*pi^2*
+      alpha^2*volum*vmael^4*Qs^-2*Us^2 + 32*chi(mz^2,s)*chic(mz^2,s)*pi^2*
+      alpha^2*volum*vpael^2*vmael^2*Qs^-2*Ts^2 + 16*chi(mz^2,s)*chic(mz^2,s)*
+      pi^2*alpha^2*volum*vpael^4*Qs^-2*Us^2 + 16*chi(mz^2,s)*chic(mz^2,t)*pi^2
+      *alpha^2*volum*vmael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,s)*chic(mz^2,t)*
+      pi^2*alpha^2*volum*vpael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*pi^2*
+      alpha^2*volum*qel^2*vmael^2*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*pi^2*
+      alpha^2*volum*qel^2*vmael^2*Ts^-2*Us^2 + 32*chi(mz^2,t)*pi^2*alpha^2*
+      volum*qel^2*vpael*vmael*Qs^2*Ts^-2 + 16*chi(mz^2,t)*pi^2*alpha^2*volum*
+      qel^2*vpael^2*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*pi^2*alpha^2*volum*qel^2
+      *vpael^2*Ts^-2*Us^2 + 16*chi(mz^2,t)*chic(mz^2,s)*pi^2*alpha^2*volum*
+      vmael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*chic(mz^2,s)*pi^2*alpha^2*
+      volum*vpael^4*Qs^-1*Ts^-1*Us^2 + 16*chi(mz^2,t)*chic(mz^2,t)*pi^2*
+      alpha^2*volum*vmael^4*Ts^-2*Us^2 + 32*chi(mz^2,t)*chic(mz^2,t)*pi^2*
+      alpha^2*volum*vpael^2*vmael^2*Qs^2*Ts^-2 + 16*chi(mz^2,t)*chic(mz^2,t)*
+      pi^2*alpha^2*volum*vpael^4*Ts^-2*Us^2 + 16*chic(mz^2,s)*pi^2*alpha^2*
+      volum*qel^2*vmael^2*Qs^-2*Us^2 + 16*chic(mz^2,s)*pi^2*alpha^2*volum*
+      qel^2*vmael^2*Qs^-1*Ts^-1*Us^2 + 32*chic(mz^2,s)*pi^2*alpha^2*volum*
+      qel^2*vpael*vmael*Qs^-2*Ts^2 + 16*chic(mz^2,s)*pi^2*alpha^2*volum*qel^2*
+      vpael^2*Qs^-2*Us^2 + 16*chic(mz^2,s)*pi^2*alpha^2*volum*qel^2*vpael^2*
+      Qs^-1*Ts^-1*Us^2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vmael^2*
+      Qs^-1*Ts^-1*Us^2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vmael^2*
+      Ts^-2*Us^2 + 32*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael*vmael*Qs^2*
+      Ts^-2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael^2*Qs^-1*Ts^-1*
+      Us^2 + 16*chic(mz^2,t)*pi^2*alpha^2*volum*qel^2*vpael^2*Ts^-2*Us^2;
 
     save Born`typeIU'`typeID'`typeFU'`typeFD'.sav [born`typeIU'`typeID'`typeFU'`type
     FD'];
     .end
-  0.68 sec out of 0.69 sec
+  0.66 sec out of 0.67 sec
