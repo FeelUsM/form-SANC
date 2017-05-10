@@ -94,10 +94,6 @@ sym pi,alpha,SS,TT,UU;
 *id den(1,m?,Q)=1/(Qs-m^2);
 *id den(1,m?,P)=1/(Ts-m^2);
 
-* #define Iin1 "`iu'";   
-* #define Iin2 "`id'";   
-* #define Ifn3 "`fd'";   
-* #define Ifn4 "`fu'";     
 id p1.p2=1/2*(SS-pm(`iu')^2-pm(`id')^2);
 id p3.p4=1/2*(SS-pm(`fd')^2-pm(`fu')^2);
 id p2.p3=-1/2*(UU-pm(`id')^2-pm(`fd')^2);
@@ -107,16 +103,20 @@ id p1.p3=-1/2*(TT-pm(`iu')^2-pm(`fd')^2);
 id TT = pm(`iu')^2+pm(`id')^2+pm(`fu')^2+pm(`fd')^2-SS-UU;
 id mgm = 0;
 
+bracket volum,e,den;
+print +s;
+.sort :kinematics applied-1;
+#write "=== KINEMATICS-1 ==="
+
 id den(1,mel,Q)=1/2/p1.p2;
 id den(1,mel,P)=-1/2/p3.p2;
 id SS = mel^2+2*p1.p2;
 id UU = mel^2-2*p2.p3;
 
-
 bracket volum,e,mel;
 print +s;
-.sort :kinematics applied;
-#write "=== KINEMATICS ==="
+.sort :kinematics applied-2;
+#write "=== KINEMATICS-2 ==="
 
 .end :Compton-end;
 
