@@ -36,25 +36,25 @@
 
 #define iu  "12"
 #define id  "12"
-#define fu  "16"
-#define fd  "16"
+#define fu  "12"
+#define fd  "12"
 
 vector Q,P;
 
 GLOBAL Born`iu'`id'`fu'`fd' =
-#do vb={1,2}
-*#define vb "1"
+*#do vb={1,2}
+#define vb "1"
    + Vb(ii ,p1,h1)*vert(-`vb',`id',-`iu',nu ,ii )*U(ii ,p2,h2)*pr(`vb',nu ,mu ,Q)
     *Ub(jj ,p3,h3)*vert( `vb',`fu',-`fd',mu ,jj )*V(jj ,p4,h4)
    - Ub(ii2,p3,h3)*vert(-`vb',`id',-`fd',mu1,ii2)*U(ii2,p2,h2)*pr(`vb',nu1,mu1,P)
     *Vb(ii1,p1,h1)*vert( `vb',`fu',-`iu',nu1,ii1)*V(ii1,p4,h4)
-#enddo
+*#enddo
 ;
 #write "=== born created ==="
 print +s;
 .sort:born created;
 
-#call FeynmanRules(1); * EW считет быстрее
+#call FeynmanRules(0); * EW считет быстрее
 id qel = -1;
 id qmo = -1;
 id vert(?e) = 0;
@@ -113,8 +113,10 @@ sym pi,alpha,SS,TT,UU,cos;
 *id e^2=4*pi*alpha;
 *id volum=1/32/pi/SS*d(cos);    
 
-*id den(1,m?,Q)=1/(Qs-m^2);
-*id den(1,m?,P)=1/(Ts-m^2);
+*id den(1,m?,Q)=1/(SS-m^2);
+id den(1,0,Q)=1/(SS);
+*id den(1,m?,P)=1/(UU-m^2);
+id den(1,0,P)=1/(UU);
 
 id p1.p2=1/2*(SS-pm(`iu')^2-pm(`id')^2);
 id p3.p4=1/2*(SS-pm(`fd')^2-pm(`fu')^2);
@@ -123,7 +125,7 @@ id p1.p4=-1/2*(UU-pm(`iu')^2-pm(`fu')^2);
 id p2.p4=-1/2*(TT-pm(`id')^2-pm(`fu')^2);
 id p1.p3=-1/2*(TT-pm(`iu')^2-pm(`fd')^2);
 id TT = pm(`iu')^2+pm(`id')^2+pm(`fu')^2+pm(`fd')^2-SS-UU;
-id mel = 0;
+*id mel = 0;
 
 bracket volum,e,den;
 print +s;
@@ -131,7 +133,9 @@ print +s;
 #write "=== KINEMATICS-1 ==="
 
 *id SS = mel^2+2*p1.p2;
-id UU = mmo^2-2*p2.p3;
+*id UU = pm(`id')^2+pm(`fd')^2-2*p2.p3;
+*id UU = mel^2;
+*id UU^-1 = mel^-2;
 
 bracket volum,e,mmo,den;
 print +s;
